@@ -28,7 +28,7 @@ class Card extends Component {
 }
 const mapStateToProps=state=>{
     return{
-        pd: state.product
+        pd: state.res.product
     }
 
 }

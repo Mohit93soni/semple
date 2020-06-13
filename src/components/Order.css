@@ -1,0 +1,18 @@
+.rate{
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    margin-left: 10px;
+}
+
+.total{
+    float: right;
+    border: 1px solid black;
+    padding: 5px;
+}
+.buttonContainer{
+    margin-top: 50px;
+    
+}
+.buttonContainer .button1{
+    margin: 20px;
+}

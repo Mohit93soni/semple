@@ -79,10 +79,11 @@
     position: fixed;
     bottom: 20px;
     right: 0;
-    width: 150px;
+    width: 110px;
     color: bisque;
-    background: #160115;
+    background: #c0ecec;
     padding: 10px;
+    text-decoration: none;
   }
   /* Hero */
   .defaultHero,
