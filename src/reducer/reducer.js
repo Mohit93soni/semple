@@ -8,7 +8,8 @@ const initialState={
         {
             icon: angle,
             title: 'Ms Angle',
-            info: ' hey EveryOne..'
+            info: ' hey EveryOne..',
+            detail:['1','2']
 
         },
         {

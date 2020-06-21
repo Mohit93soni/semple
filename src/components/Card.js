@@ -16,6 +16,7 @@ class Card extends Component {
         <div className='content'>
             <h2>{prdct.title}</h2>
             <p>{prdct.info}</p>
+            <p>{prdct.detail}</p>
             <Button variant="contained" color='Primary'>More Detail</Button>    
         </div>
         </div>

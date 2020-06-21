@@ -1,47 +1,53 @@
-import React,{useState} from 'react'
+import React,{Component} from 'react'
 import {InputAdornment, Select, MenuItem, Input, FormHelperText,Button, FormControl } from '@material-ui/core'
 import './Order.css'
+import {connect} from 'react-redux'
 import { Link } from 'react-router-dom';
-const Order = () => {
-    const [item, setItem] =useState('');
-    const [weight,setWeight]= useState();
-    const [rate,setRate] =useState();
-    const handleChange = (event) => {
-      setItem(event.target.value);
-      console.log(event.target.value)
-      if(event.target.value==='MsAngle'){
-        setRate(45)
-      }
-      if(event.target.value==='MsChannel'){
-        setRate(46)
-      }
-      if(event.target.value==='MsSqPipe'){
-        setRate(49)
-      }
-      if(event.target.value==='MsRoPipe'){
-        setRate(51)
-      }
-      if(event.target.value==='MsFlate'){
-        setRate(40)
-      }
-    };
+import * as actionCreators from '../action'
+class Order extends Component {
+  state={
+      item:'',
+      value:'',
+      weight:'',
+      rate:'',
+      total:'',
+      totalPrice:''
+  }
+
+
+   handleChange = (event) => {
+    this.setState({item:event.target.value});
+    console.log('value',event)
+  };
+    render(){
+  
+
 
     const weightHandler=event=>{
-        setWeight(event.target.value)
+        this.setState({weight:event.target.value})
         console.log(event.target.value)
     };
 
+    const getRateHandler=(price)=>{
+        console.log('price',price);
+        
+   
+        //this.props.onPassRate(price)
+    }
+    console.log('rate',this.state.rate);
     return (
         <div >
-        <Select value={item}
-          onChange={handleChange}
+        <Select value={this.state.item}
+          onChange={(event)=>console.log('ev',event)}
           displayEmpty style={{marginRight:10}}>
             <MenuItem value=''><em>Select Item</em></MenuItem>
-            <MenuItem value='MsAngle'>Angle</MenuItem>
-          <MenuItem value='MsChannel'>Channel</MenuItem>
-          <MenuItem value='MsSqPipe'>Square Pipe</MenuItem>
-          <MenuItem value='MsRoPipe'>Round Pipe</MenuItem>
-          <MenuItem value='MsFlate'>Flate</MenuItem>
+            {this.props.stock.map(stk=>{
+        
+          console.log('stk',stk);
+          return(
+            <MenuItem value={stk} key={stk.id} >{stk.item}</MenuItem>
+          
+        )})}
         </Select>
         
         <FormControl >
@@ -53,17 +59,20 @@ const Order = () => {
             inputProps={{
               'aria-label': 'weight',
             }}
-            value={weight}
+            value={this.state.weight}
             type='number'
             onChange={weightHandler}
           />
           <FormHelperText id="standard-weight-helper-text">weight</FormHelperText>
         </FormControl>
-        <label className='rate'>{rate} /kg</label>
-        <label className='rate'>{weight*rate}</label>
+        <label className='rate'>{this.state.rate} /kg</label>
+        <label className='rate'>{this.state.weight*this.state.rate}$</label>
+        
         <div>
-        <label className='total'>total</label>
+        
+        <label className='total' >total{this.state.total}</label>
         </div>
+        <Button className='addButton'>click</Button>
         <div className='buttonContainer'>
         <Link to='/'>
         <Button variant="contained" color="secondary"> 
@@ -74,8 +83,19 @@ const Order = () => {
             Order Now
         </Button>
         </div>
+        
         </div>
-    )
+    )}
 }
-
-export default Order
+const mapStateToProps=state=>{
+  return{
+    stock:state.odrRes.stock,
+    rate:state.odrRes.rate
+  }
+};
+const mapDispatchToProps=dispatch=>{
+  return{
+    onPassRate:(rate)=>dispatch(actionCreators.passRate(rate))
+  }
+};
+export default connect(mapStateToProps,mapDispatchToProps)(Order)

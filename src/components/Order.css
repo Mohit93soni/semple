@@ -8,10 +8,14 @@
     float: right;
     border: 1px solid black;
     padding: 5px;
+    margin-top: 56px;
 }
 .buttonContainer{
     margin-top: 50px;
     
+}
+.addButton{
+    margin-top: 50px;
 }
 .buttonContainer .button1{
     margin: 20px;
